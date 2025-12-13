@@ -41,7 +41,7 @@ public class User {
 	private List<Order> orders = new ArrayList<>();
 
 	@ElementCollection
-	private List<RestaurantDto> favoritesList = new ArrayList<>();
+	private List<RestaurantDto> favorites = new ArrayList<>();
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Address> addresses = new ArrayList<>();
@@ -82,12 +82,12 @@ public class User {
 		this.orders = orders;
 	}
 
-	public List<RestaurantDto> getFavoritesList() {
-		return favoritesList;
+	public List<RestaurantDto> getFavorites() {
+		return favorites;
 	}
 
-	public void setFavoritesList(List<RestaurantDto> favoritesList) {
-		this.favoritesList = favoritesList;
+	public void setFavorites(List<RestaurantDto> favorites) {
+		this.favorites = favorites;
 	}
 
 	public List<Address> getAddresses() {
