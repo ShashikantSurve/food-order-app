@@ -124,13 +124,14 @@ public class RestaurantServiceImpl implements RestaurantService {
 			user.getFavorites().add(dto);
 		}
 
-		return null;
+		return dto;
 	}
 
 	@Override
 	public Restaurant updateRestaurantStatus(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Restaurant restaurant = findRestaurantById(id);
+		restaurant.setOpen(!restaurant.getOpen());
+		return restaurantRepository.save(restaurant);
 	}
 
 }
