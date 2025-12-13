@@ -14,12 +14,11 @@ import com.surve_Food.dto.RestaurantDto;
 import com.surve_Food.repository.AddressRepository;
 import com.surve_Food.repository.CartRepository;
 import com.surve_Food.repository.RestaurantRepository;
-import com.surve_Food.repository.UserRepository;
 import com.surve_Food.request.CreateRestaurantRequest;
 
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
-
+	@Autowired
 	private final CartRepository cartRepository;
 
 	@Autowired
@@ -28,8 +27,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 	@Autowired
 	private AddressRepository addressRepository;
 
-	@Autowired
-	private UserRepository userRepository;
+//	@Autowired
+//	private UserRepository userRepository;
 
 	RestaurantServiceImpl(CartRepository cartRepository) {
 		this.cartRepository = cartRepository;

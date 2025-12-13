@@ -24,8 +24,8 @@ import com.surve_Food.service.UserService;
 @RequestMapping("api/admin/restaurants")
 public class AdminRestaurantController {
 
-	@Autowired
-	private Restaurant restaurant;
+//	@Autowired
+//	private Restaurant restaurant;
 
 	@Autowired
 	private RestaurantService restaurantService;
@@ -55,9 +55,9 @@ public class AdminRestaurantController {
 
 	}
 
-	@DeleteMapping()
-	public ResponseEntity<MessageResponse> deleteRestaurant(@RequestBody CreateRestaurantRequest req,
-			@RequestHeader("Authorization") String jwt, @PathVariable Long id) throws Exception {
+	@DeleteMapping("/{id}")
+	public ResponseEntity<MessageResponse> deleteRestaurant(@RequestHeader("Authorization") String jwt,
+			@PathVariable Long id) throws Exception {
 
 		User user = userService.findUserByJwtToken(jwt);
 		restaurantService.deleteRestaurant(id);
@@ -69,8 +69,8 @@ public class AdminRestaurantController {
 	}
 
 	@PutMapping("/{id}/status")
-	public ResponseEntity<Restaurant> updateRestaurantStatus(@RequestBody CreateRestaurantRequest req,
-			@RequestHeader("Authorization") String jwt, @PathVariable Long id) throws Exception {
+	public ResponseEntity<Restaurant> updateRestaurantStatus(@RequestHeader("Authorization") String jwt,
+			@PathVariable Long id) throws Exception {
 
 		User user = userService.findUserByJwtToken(jwt);
 		Restaurant restaurant = restaurantService.updateRestaurantStatus(id);
@@ -80,11 +80,11 @@ public class AdminRestaurantController {
 	}
 
 	@GetMapping("/user")
-	public ResponseEntity<Restaurant> findRestaurantByUserId(@RequestBody CreateRestaurantRequest req,
-			@RequestHeader("Authorization") String jwt) throws Exception {
+	public ResponseEntity<Restaurant> findRestaurantByUserId(@RequestHeader("Authorization") String jwt)
+			throws Exception {
 
 		User user = userService.findUserByJwtToken(jwt);
-		restaurantService.getRestaurantByUserId(user.getId());
+		Restaurant restaurant = restaurantService.getRestaurantByUserId(user.getId());
 
 		return new ResponseEntity<>(restaurant, HttpStatus.OK);
 
