@@ -21,7 +21,7 @@ import com.surve_Food.service.RestaurantService;
 import com.surve_Food.service.UserService;
 
 @RestController
-@RequestMapping("api/admin/restaurants")
+@RequestMapping("/api/admin/restaurants")
 public class AdminRestaurantController {
 
 //	@Autowired
@@ -33,7 +33,7 @@ public class AdminRestaurantController {
 	@Autowired
 	private UserService userService;
 
-	@PostMapping()
+	@PostMapping
 	public ResponseEntity<Restaurant> createRestaurant(@RequestBody CreateRestaurantRequest req,
 			@RequestHeader("Authorization") String jwt) throws Exception {
 
@@ -44,7 +44,7 @@ public class AdminRestaurantController {
 
 	}
 
-	@PutMapping()
+	@PutMapping("/{id}")
 	public ResponseEntity<Restaurant> updateRestaurant(@RequestBody CreateRestaurantRequest req,
 			@RequestHeader("Authorization") String jwt, @PathVariable Long id) throws Exception {
 
