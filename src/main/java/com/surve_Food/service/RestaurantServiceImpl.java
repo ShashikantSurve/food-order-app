@@ -14,10 +14,13 @@ import com.surve_Food.dto.RestaurantDto;
 import com.surve_Food.repository.AddressRepository;
 import com.surve_Food.repository.CartRepository;
 import com.surve_Food.repository.RestaurantRepository;
+import com.surve_Food.repository.UserRepository;
 import com.surve_Food.request.CreateRestaurantRequest;
 
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
+
+	private final UserRepository userRepository;
 	@Autowired
 	private final CartRepository cartRepository;
 
@@ -30,8 +33,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 //	@Autowired
 //	private UserRepository userRepository;
 
-	RestaurantServiceImpl(CartRepository cartRepository) {
+	RestaurantServiceImpl(CartRepository cartRepository, UserRepository userRepository) {
 		this.cartRepository = cartRepository;
+		this.userRepository = userRepository;
 	}
 
 	@Override
@@ -117,12 +121,22 @@ public class RestaurantServiceImpl implements RestaurantService {
 		dto.setTitle(restaurant.getName());
 		dto.setId(restaurantId);
 
-		if (user.getFavorites().contains(dto)) {
-			user.getFavorites().remove(dto);
-		} else {
-			user.getFavorites().add(dto);
+		boolean isFavorited = false;
+		List<RestaurantDto> favorites = user.getFavorites();
+		for (RestaurantDto favorite : favorites) {
+			if (favorite.getId().equals(restaurantId)) {
+				isFavorited = true;
+				break;
+			}
 		}
 
+		if (isFavorited) {
+			favorites.removeIf(favorite -> favorite.getId().equals(restaurantId));
+
+		} else {
+			favorites.add(dto);
+		}
+		userRepository.save(user);
 		return dto;
 	}
 
