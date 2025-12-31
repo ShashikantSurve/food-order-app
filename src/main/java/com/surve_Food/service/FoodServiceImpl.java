@@ -1,6 +1,8 @@
 package com.surve_Food.service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,28 +46,68 @@ public class FoodServiceImpl implements FoodService {
 	}
 
 	@Override
-	public List<Food> getRestaurantsFood(Long restaurantId, boolean isVegitarine, boolean isNonveg,
-			boolean isSeasonable, String foodCategory) {
+	public List<Food> getRestaurantsFood(Long restaurantId, boolean isVegitarine, boolean isNonveg, boolean isSeasonal,
+			String foodCategory) {
+		List<Food> foods = foodRepository.findByRestaurantId(restaurantId);
+		if (isVegitarine) {
+			foods = filterByVegetarian(foods, isVegitarine);
+		}
+		if (isNonveg) {
+			foods = filterByNinveg(foods, isNonveg);
+		}
+		if (isSeasonal) {
+			foods = filterBySeasonal(foods, isSeasonal);
+		}
+		if (foodCategory != null && !foodCategory.equals("")) {
+			foods = filterByCategory(foods, foodCategory);
+		}
 
-		return null;
+		return foods;
+	}
+
+	private List<Food> filterByCategory(List<Food> foods, String foodCategory) {
+
+		return foods.stream().filter(food -> {
+			if (food.getFoodCategory() != null) {
+				return food.getFoodCategory().getName().equals(foodCategory);
+			} else {
+				return false;
+			}
+		}).collect(Collectors.toList());
+	}
+
+	private List<Food> filterBySeasonal(List<Food> foods, boolean isSeasonal) {
+		return foods.stream().filter(food -> food.isSeasonal() == isSeasonal).collect(Collectors.toList());
+	}
+
+	private List<Food> filterByNinveg(List<Food> foods, boolean isNonveg) {
+		return foods.stream().filter(food -> food.getIsVegetarian() == false).collect(Collectors.toList());
+	}
+
+	private List<Food> filterByVegetarian(List<Food> foods, boolean isVegitarine) {
+		return foods.stream().filter(food -> food.getIsVegetarian() == isVegitarine).collect(Collectors.toList());
 	}
 
 	@Override
 	public List<Food> searchFood(String keyword) {
-		// TODO Auto-generated method stub
-		return null;
+		return foodRepository.searchFood(keyword);
 	}
 
 	@Override
 	public Food findFoodById(Long foodId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Food> optionalFood = foodRepository.findById(foodId);
+		if (optionalFood.isEmpty()) {
+			throw new Exception("food not exist....");
+		}
+		return optionalFood.get();
 	}
 
 	@Override
 	public Food updateAvailiblityStatus(Long foodId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Food food = findFoodById(foodId);
+		food.setAvailable(!food.isAvailable());
+
+		return foodRepository.save(food);
 	}
 
 }

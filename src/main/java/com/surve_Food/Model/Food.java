@@ -99,7 +99,7 @@ public class Food {
 		this.images = images;
 	}
 
-	public Boolean getAvailable() {
+	public Boolean isAvailable() {
 		return available;
 	}
 
