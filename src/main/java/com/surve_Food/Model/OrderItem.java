@@ -28,4 +28,45 @@ public class OrderItem {
 	private Long totalPriceLong;
 
 	private List<String> ingredientStrings;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Food getFood() {
+		return food;
+	}
+
+	public void setFood(Food food) {
+		this.food = food;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public Long getTotalPriceLong() {
+		return totalPriceLong;
+	}
+
+	public void setTotalPriceLong(Long totalPriceLong) {
+		this.totalPriceLong = totalPriceLong;
+	}
+
+	public List<String> getIngredientStrings() {
+		return ingredientStrings;
+	}
+
+	public void setIngredientStrings(List<String> ingredientStrings) {
+		this.ingredientStrings = ingredientStrings;
+	}
+
 }

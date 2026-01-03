@@ -1,6 +1,6 @@
 package com.surve_Food.Model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -49,5 +49,86 @@ public class Order {
 
 	private int totalItem;
 
-	private int totalPrice;
+	private Long totalPrice;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public User getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(User customer) {
+		this.customer = customer;
+	}
+
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
+
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
+	}
+
+	public Long getTotalAmountLong() {
+		return totalAmountLong;
+	}
+
+	public void setTotalAmountLong(Long totalAmountLong) {
+		this.totalAmountLong = totalAmountLong;
+	}
+
+	public String getOrderStatuString() {
+		return orderStatuString;
+	}
+
+	public void setOrderStatuString(String orderStatuString) {
+		this.orderStatuString = orderStatuString;
+	}
+
+	public Date getCreateAt() {
+		return createAt;
+	}
+
+	public void setCreateAt(Date createAt) {
+		this.createAt = createAt;
+	}
+
+	public Address getDeliveryAddress() {
+		return deliveryAddress;
+	}
+
+	public void setDeliveryAddress(Address deliveryAddress) {
+		this.deliveryAddress = deliveryAddress;
+	}
+
+	public List<OrderItem> getItems() {
+		return items;
+	}
+
+	public void setItems(List<OrderItem> items) {
+		this.items = items;
+	}
+
+	public int getTotalItem() {
+		return totalItem;
+	}
+
+	public void setTotalItem(int totalItem) {
+		this.totalItem = totalItem;
+	}
+
+	public Long getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(Long totalPrice2) {
+		this.totalPrice = totalPrice2;
+	}
+
 }
