@@ -57,6 +57,6 @@ public class Address {
 		this.pincode = pincode;
 	}
 
-	// getters & setters
+	// getters & setters methods for address
 
 }
